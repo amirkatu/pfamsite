@@ -1,0 +1,20 @@
+<!-- home/partials/education.html -->
+<section id="education" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">تحصیلات</h2>
+    <div class="row g-4">
+      {% for edu in educations %}
+      <div class="col-md-6">
+        <div class="card education-card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ edu.degree }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ edu.university }}</h6>
+            <small class="text-muted d-block mb-3">{{ edu.start_year }} - {{ edu.end_year|default:"در حال تحصیل" }}</small>
+            <p class="card-text">{{ edu.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

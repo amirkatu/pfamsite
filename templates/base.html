@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}پورتفولیو من{% endblock %}</title>
+  
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Persian Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { font-family: 'Vazirmatn', sans-serif; }
+    
+    /* رنگ‌بندی سفارشی شما */
+    :root {
+      --dark: #0C2B4E;      /* #0C2B4E */
+      --secondary: #1A3D64; /* #1A3D64 */
+      --primary: #1D546C;   /* #1D546C (آکسانت اصلی) */
+      --light: #F4F4F4;     /* #F4F4F4 پس‌زمینه روشن */
+      --accent: #1D546C;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 50%, var(--primary) 100%);
+    }
+    
+    body { background: var(--light); color: #0C2B4E; }
+    
+    /* ناوبری */
+    .nav-link { color: var(--light); transition: color .2s; }
+    .nav-link:hover { color: var(--primary); }
+    .nav-icon { color: var(--primary); }
+    
+    /* منوی موبایل و فوتر */
+    .mobile-menu { background: var(--secondary); }
+    .site-footer { background: var(--dark); color: var(--light); }
+    .footer-icon { color: var(--primary); }
+    
+    /* هدر کاملاً چسبیده */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* حذف فضای سفید زیر هدر */
+    main {
+      padding-top: 0 !important;
+      margin-top: 80px; /* ارتفاع هدر */
+    }
+    
+    /* افکت blur */
+    .navbar-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(12, 43, 78, 0.95) !important; /* براساس #0C2B4E */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* انیمیشن‌ها */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
+    .skill-bar {
+      width: 0%;
+      transition: width 2s ease-in-out;
+      background: linear-gradient(90deg, var(--primary), rgba(29,84,108,0.85));
+    }
+    .skill-bar.animate { width: var(--skill-width); }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(29,84,108,0.18);
+    }
+    
+    .typewriter {
+      overflow: hidden;
+      border-right: 3px solid var(--accent);
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent); } }
+    
+    .pulse-blue {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(29,84,108,0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(29,84,108,0); }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Header - چسبیده به بالا -->
+  <header class="gradient-bg">
+    <nav class="container mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-white font-bold text-xl">
+          <i class="fas fa-code nav-icon ml-2"></i>
+           {{ profile.name|default:"پورتفولیو" }}
+         </div>
+        <div class="hidden md:flex space-x-8 space-x-reverse">
+          <!-- ...existing code... -->
+          <a href="{% url 'home:home' %}#home" class="nav-link">خانه</a>
+          <a href="{% url 'home:home' %}#about" class="nav-link">درباره من</a>
+          <a href="{% url 'home:home' %}#skills" class="nav-link">مهارت‌ها</a>
+          <a href="{% url 'home:home' %}#portfolio" class="nav-link">نمونه کارها</a>
+          <a href="{% url 'home:home' %}#education" class="nav-link">تحصیلات</a>
+          <a href="{% url 'home:home' %}#blog" class="nav-link">وبلاگ</a>
+          <a href="{% url 'home:home' %}#contact" class="nav-link">تماس</a>
+          <!-- ...existing code... -->
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button onclick="toggleMobileMenu()" class="text-white focus:outline-none">
+            <i class="fas fa-bars fa-lg"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-4 mobile-menu p-4 rounded-xl">
+        <!-- changed code -->
+        <a href="{% url 'home:home' %}#home" class="block nav-link py-2">خانه</a>
+        <a href="{% url 'home:home' %}#about" class="block nav-link py-2">درباره من</a>
+        <a href="{% url 'home:home' %}#skills" class="block nav-link py-2">مهارت‌ها</a>
+        <a href="{% url 'home:home' %}#portfolio" class="block nav-link py-2">نمونه کارها</a>
+        <a href="{% url 'home:home' %}#education" class="block nav-link py-2">تحصیلات</a>
+        <a href="{% url 'home:home' %}#blog" class="block nav-link py-2">وبلاگ</a>
+        <a href="{% url 'home:home' %}#contact" class="block nav-link py-2">تماس</a>
+        <!-- ...existing code... -->
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer py-10 mt-20">
+    <div class="container mx-auto px-6 text-center">
+      <div class="flex justify-center space-x-6 space-x-reverse mb-4">
+        {% if profile.github %}<a href="{{ profile.github }}" class="footer-icon hover:opacity-90 text-xl"><i class="fab fa-github"></i></a>{% endif %}
+        {% if profile.linkedin %}<a href="{{ profile.linkedin }}" class="footer-icon hover:opacity-90 text-xl"><i class="fab fa-linkedin"></i></a>{% endif %}
+      </div>
+      <p class="text-gray-400">ساخته شده با <span style="color:#e34c4c" class="mx-1">♥</span> توسط {{ profile.name|default:"من" }} © ۱۴۰۴</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const skillObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+            setTimeout(() => bar.classList.add('animate'), 300);
+          });
+        }
+      });
+    });
+    document.querySelectorAll('#skills').forEach(el => skillObserver.observe(el));
+
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('navbar-blur');
+      } else {
+        header.classList.remove('navbar-blur');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!-- home/partials/skills.html -->
+<section id="skills" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">مهارت‌های من</h2>
+    <div class="row g-4">
+      {% for skill in skills %}
+      <div class="col-md-6 col-lg-4">
+        <div class="skill-item card border-0 shadow-sm p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="skill-name fw-semibold">{{ skill.name }}</span>
+            <span class="skill-percentage text-primary fw-bold">{{ skill.percentage }}%</span>
+          </div>
+          <div class="progress thin">
+            <div class="progress-bar bg-primary" style="width: {{ skill.percentage }}%"></div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

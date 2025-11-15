@@ -1,0 +1,23 @@
+<!-- home/partials/contact.html -->
+<section id="contact" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">تماس با من</h2>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <form method="post" class="p-4 bg-white rounded shadow-sm">
+          {% csrf_token %}
+          <div class="mb-3">
+            <input type="text" name="name" class="form-control" placeholder="نام شما" required>
+          </div>
+          <div class="mb-3">
+            <input type="email" name="email" class="form-control" placeholder="ایمیل" required>
+          </div>
+          <div class="mb-3">
+            <textarea name="message" class="form-control" rows="5" placeholder="پیام شما" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">ارسال پیام</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
