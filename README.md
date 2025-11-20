@@ -5,7 +5,7 @@
 <img src="#" alt="Website Preview" width="100%">
 
 ### 🚀 About This Project
-A modern, clean and fully responsive personal portfolio website built with **Django 5**.
+A modern, clean and fully responsive personal portfolio website built with **Django **.
 
 Live Demo → https://amirkatu.ir 
 
